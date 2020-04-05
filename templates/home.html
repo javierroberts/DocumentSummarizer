@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document Summarizer</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="home.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <!-- Start Navbar -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <a class="navbar-brand" href="#">Document Summarizer</a>
+      <form class="form-inline quick-summ" action="">
+        <input
+          class="form-control mr-sm-2"
+          type="text"
+          placeholder="Document URL"
+        />
+        <button class="btn btn-success" type="submit">Quick Summary</button>
+      </form>
+      <ul class="navbar-nav ml-auto info">
+        <li class="nav-item about">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- End Navbar -->
+
+    <!-- Begin Summarizer-->
+    <div class="container summarizer">
+      <div class="row">
+        <div class="col-md-12 heading">
+          EC500 Document Summarizer
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <form>
+            <div class="form-group">
+              <div class="url">
+                <input
+                  class="form-control mr-sm-2 input-area"
+                  type="text"
+                  placeholder="Document URL"
+                />
+              </div>
+              <div class="file">
+                <label for="file">Or choose PDF file</label>
+                <input
+                  type="file"
+                  class="form-control-file border input-area"
+                  id="file"
+                />
+              </div>
+              <div class="cp">
+                <label for="cp area">Or copy paste:</label>
+                <textarea
+                  class="form-control input-area"
+                  rows="5"
+                  id="cp area"
+                ></textarea>
+              </div>
+            </div>
+            <button class="btn btn-success" type="submit">Summarize</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- End Summarizer-->
+
+    <!-- Scripts -->
+    <script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+  </body>
+</html>
