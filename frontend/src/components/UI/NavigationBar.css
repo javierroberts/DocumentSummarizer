@@ -1,0 +1,26 @@
+.navbar .user-icon {
+  position: absolute;
+  right: 3rem;
+  color: red;
+}
+.navbar .user-icon:hover {
+  color: white !important;
+}
+
+.navbar a:hover {
+  color: red !important;
+}
+
+.navbar .quick-search {
+  margin-left: 4rem;
+}
+
+.navbar .quick-search button {
+  color: white;
+  border-color: white;
+}
+
+.navbar .quick-search button:hover {
+  color: red;
+  border-color: red;
+}
