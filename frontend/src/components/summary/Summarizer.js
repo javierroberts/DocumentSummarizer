@@ -76,7 +76,9 @@ class Summarizer extends React.Component {
           {this.state.openInput == "fl" && <FlInput />}
         </div>
         <div className="row output">
-          <SummOutput outputText={this.state.summary} />
+          {this.state.summary != "" && (
+            <SummOutput outputText={this.state.summary} />
+          )}
         </div>
       </div>
     );
