@@ -22,7 +22,13 @@ class CpInput extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ type: "cp", text: this.state.cpValue })
-    });
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        this.props.handleSummaryChange(data.text);
+      });
   }
 
   render() {

@@ -22,7 +22,13 @@ class UrlInput extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ type: "url", text: this.state.url })
-    });
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        this.props.handleSummaryChange(data.text);
+      });
   }
 
   render() {

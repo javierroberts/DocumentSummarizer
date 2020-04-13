@@ -15,6 +15,7 @@ const getSumm = (req, res, next) => {
   }
 
   if (req.body.type == "url") {
+    console.log("file");
     req_api.query({
       url: text,
       sentences: "2"
@@ -38,6 +39,7 @@ const getSumm = (req, res, next) => {
     if (res_api.error) throw new Error(res_api.error);
 
     console.log(res_api.body.summary);
+    res.json({ text: res_api.body.summary });
   });
 };
 
