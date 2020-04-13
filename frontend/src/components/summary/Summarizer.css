@@ -1,0 +1,27 @@
+.summarizer .btn-primary {
+  width: 100%;
+  border-radius: 0;
+  border-color: black;
+  background-color: black !important;
+}
+.summarizer .btn-primary:hover {
+  width: 100%;
+  border-radius: 0;
+  border-color: black;
+  background-color: white !important;
+  color: black;
+}
+.summarizer .button-col {
+  padding: 0;
+}
+
+.summarizer .url-button {
+  border-right: none;
+}
+.summarizer .cp-button {
+  border-right: none;
+}
+.summarizer .buttons-row {
+  padding-left: 1rem;
+  margin-top: 0.3rem;
+}
