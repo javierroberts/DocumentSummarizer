@@ -39,14 +39,14 @@ class NavigationBar extends React.Component {
                 Recent Summaries
               </a>
             </li>
-            <li className="nav-item d-lg-none d-xl-block">
+            <li className="nav-item d-lg-none d-xl-none">
               <a className="nav-link" href="#">
                 Sign in
               </a>
             </li>
           </ul>
           <form
-            className="form-inline quick-search d-none d-lg-block d-xl-none"
+            className="form-inline quick-search d-none d-lg-block d-xl-block"
             action="/action_page.php"
           >
             <input
@@ -63,7 +63,7 @@ class NavigationBar extends React.Component {
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
           <a href="#">
             <i
-              className="fas fa-user fa-lg d-none d-lg-block d-xl-none user-icon"
+              className="fas fa-user fa-lg d-none d-lg-block d-xl-block user-icon"
               data-fa-transform="up-7"
             ></i>
           </a>

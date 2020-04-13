@@ -6,7 +6,16 @@ import "./Landing.css";
 
 class Landing extends React.Component {
   render() {
-    return <Summarizer className="summarizer" />;
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-md-2"></div>
+          <div className="col-md-10">
+            <Summarizer className="summarizer" />
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 
