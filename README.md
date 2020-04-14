@@ -15,7 +15,7 @@ Document summarizer web app by David Abadi and Javier Roberts
 
 ## Frontend
 
-The frontend was built using ReactJS to allow for single application interface, ensure faster rendering, and facilitate maintanence. We also used the bootsrap CSS library for easier styling/ppoitioning of components.
+The frontend was built using ReactJS to allow for single page application interface, ensure faster rendering, and facilitate maintanence. We also used the bootsrap CSS library for easier styling/positioning of components.
 
 ## Backend
 
