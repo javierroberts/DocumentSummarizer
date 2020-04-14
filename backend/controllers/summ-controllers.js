@@ -1,28 +1,23 @@
 var unirest = require("unirest");
 
-var req_api = unirest(
-  "GET",
-  "https://meaningcloud-summarization-v1.p.rapidapi.com/summarization-1.0"
-);
-
 const getSumm = (req, res, next) => {
+  var req_api = unirest(
+    "GET",
+    "https://meaningcloud-summarization-v1.p.rapidapi.com/summarization-1.0"
+  );
+
   const text = req.body.text;
   if (req.body.type == "cp") {
     req_api.query({
       txt: req.body.text,
       sentences: "2"
     });
-  }
-
-  if (req.body.type == "url") {
-    console.log("file");
+  } else if (req.body.type == "url") {
     req_api.query({
       url: text,
       sentences: "2"
     });
-  }
-
-  if (req.body.type == "file") {
+  } else if (req.body.type == "file") {
     req_api.query({
       file: text,
       sentences: "2"
