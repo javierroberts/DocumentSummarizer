@@ -4,7 +4,7 @@ Document summarizer web app by David Abadi and Javier Roberts
 
 # To Run Web App Locally:
 
-1. Install node JS 13
+1. Install nodeJS 13
 2. In backend directory use npm to install nodemon and body-parser:
    - npm install --save-dev nodemon
    - npm install --save body-parser
