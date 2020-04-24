@@ -9,6 +9,7 @@
 
 .navbar a:hover {
   color: red !important;
+  text-decoration: none !important;
 }
 
 .navbar .quick-search {
@@ -23,4 +24,12 @@
 .navbar .quick-search button:hover {
   color: red;
   border-color: red;
+}
+
+.navbar .nav-item {
+  margin-left: 2rem;
+}
+
+.navbar .link {
+  color: silver;
 }

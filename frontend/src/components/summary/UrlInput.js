@@ -16,12 +16,17 @@ class UrlInput extends React.Component {
 
   handleUrlSubmit(event) {
     event.preventDefault();
+    console.log("THis is the token im sending: " + this.props.token);
     fetch("http://localhost:5000/getSumm", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: this.props.token
       },
-      body: JSON.stringify({ type: "url", text: this.state.url, id: 1 })
+      body: JSON.stringify({
+        type: "url",
+        text: this.state.url
+      })
     })
       .then(response => {
         return response.json();

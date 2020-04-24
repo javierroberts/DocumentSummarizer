@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import "./AuthWindow.css";
+import "./Signup.css";
 
-class AuthWindow extends React.Component {
+class Signup extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { username: "", password: "", confirmPass: "" };
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleConfrimPassChange = this.handleConfrimPassChange.bind(this);
+    this.handleCreateAccount = this.handleCreateAccount.bind(this);
   }
   componentDidMount() {
     document.addEventListener("click", this.handleClickOutside, true);
@@ -33,18 +36,21 @@ class AuthWindow extends React.Component {
     this.setState({ password: e.target.value });
   };
 
-  handleLogin = event => {
+  handleConfrimPassChange = e => {
+    this.setState({ confirmPass: e.target.value });
+  };
+
+  handleCreateAccount = event => {
     event.preventDefault();
-    console.log("Sendingg");
-    fetch("http://localhost:5000/users/login", {
+    fetch("http://localhost:5000/users/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: {
+      body: JSON.stringify({
         username: this.state.username,
         password: this.state.password
-      }
+      })
     })
       .then(response => {
         return response.json();
@@ -53,6 +59,7 @@ class AuthWindow extends React.Component {
         console.log("DATA: " + JSON.stringify(data.token));
         this.props.setToken(data.token);
       });
+
     this.props.closeHandler();
   };
 
@@ -61,7 +68,7 @@ class AuthWindow extends React.Component {
       <div className="wrapper fadeInDown">
         <div id="formContent">
           <div className="fadeIn first">
-            <h3>Login</h3>
+            <h3>Sign up</h3>
           </div>
           <form>
             <input
@@ -80,24 +87,25 @@ class AuthWindow extends React.Component {
               placeholder="password"
               onChange={this.handlePasswordChange}
             />
+            <input
+              type="text"
+              id="password2"
+              className="fadeIn third"
+              name="login"
+              placeholder="confirm password"
+              onChange={this.handleConfirmPassChange}
+            />
 
             <input
               type="submit"
               className="fadeIn fourth"
-              value="Log In"
-              onClick={this.handleLogin}
+              value="Sign up"
+              onClick={this.handleCreateAccount}
             />
-
-            <div className="signup-button">
-              <a className="underlineHover" onClick={this.props.signupHandler}>
-                or sign up
-              </a>
-            </div>
           </form>
-
           <div id="formFooter">
-            <a className="underlineHover" href="#">
-              Forgot Password?
+            <a className="underlineHover" onClick={this.props.loginHandler}>
+              Already have an account?
             </a>
           </div>
         </div>
@@ -106,4 +114,4 @@ class AuthWindow extends React.Component {
   }
 }
 
-export default AuthWindow;
+export default Signup;

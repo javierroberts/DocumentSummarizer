@@ -1,5 +1,12 @@
 import React from "react";
 
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Link
+} from "react-router-dom";
+
 import "./NavigationBar.css";
 
 class NavigationBar extends React.Component {
@@ -15,9 +22,9 @@ class NavigationBar extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-static-top bg-dark navbar-dark">
-        <a className="navbar-brand" href="#">
+        <Link to="/" className="navbar-brand">
           DocuSum
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -30,14 +37,14 @@ class NavigationBar extends React.Component {
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link className="link" to="/">
                 Summarize
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link className="link" to="/recent">
                 Recent Summaries
-              </a>
+              </Link>
             </li>
             <li className="nav-item d-lg-none d-xl-none">
               <a className="nav-link" href="#">
@@ -45,20 +52,6 @@ class NavigationBar extends React.Component {
               </a>
             </li>
           </ul>
-          <form
-            className="form-inline quick-search d-none d-lg-block d-xl-block"
-            action="/action_page.php"
-          >
-            <input
-              className="form-control mr-sm-2"
-              type="text"
-              onChange={this.handleSearchOnChange}
-              placeholder="URL"
-            />
-            <button className="btn btn-default" type="submit">
-              Quick Summary
-            </button>
-          </form>
         </div>
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
           <a onClick={this.props.authHandler}>

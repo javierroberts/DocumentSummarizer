@@ -19,9 +19,13 @@ class CpInput extends React.Component {
     fetch("http://localhost:5000/getSumm", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: this.props.token
       },
-      body: JSON.stringify({ type: "cp", text: this.state.cpValue })
+      body: JSON.stringify({
+        type: "cp",
+        text: this.state.cpValue
+      })
     })
       .then(response => {
         return response.json();

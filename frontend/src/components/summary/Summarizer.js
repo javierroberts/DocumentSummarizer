@@ -68,16 +68,25 @@ class Summarizer extends React.Component {
         </div>
         <div className="row">
           {this.state.openInput == "url" && (
-            <UrlInput handleSummaryChange={this.handleSummaryChange} />
+            <UrlInput
+              handleSummaryChange={this.handleSummaryChange}
+              token={this.props.token}
+            />
           )}
           {this.state.openInput == "cp" && (
-            <CpInput handleSummaryChange={this.handleSummaryChange} />
+            <CpInput
+              handleSummaryChange={this.handleSummaryChange}
+              token={this.props.token}
+            />
           )}
           {this.state.openInput == "fl" && <FlInput />}
         </div>
         <div className="row output">
           {this.state.summary != "" && (
-            <SummOutput outputText={this.state.summary} />
+            <SummOutput
+              outputText={this.state.summary}
+              token={this.props.token}
+            />
           )}
         </div>
       </div>
