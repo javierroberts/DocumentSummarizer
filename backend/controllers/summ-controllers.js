@@ -1,7 +1,7 @@
 var mongo = require("../mongo");
 var unirest = require("unirest");
 
-const getSumm = (req, res, next) => {
+const postSumm = (req, res, next) => {
   var req_api = unirest(
     "GET",
     "https://meaningcloud-summarization-v1.p.rapidapi.com/summarization-1.0"
@@ -35,10 +35,21 @@ const getSumm = (req, res, next) => {
     if (res_api.error) throw new Error(res_api.error);
 
     console.log(req.body.id);
-    mongo.createSummary(res_api.body.summary, req.body.id);
+    mongo.createSummary(
+      res_api.body.summary,
+      req.body.id,
+      req.body.type,
+      req.body.text
+    );
 
     res.json({ text: res_api.body.summary });
   });
 };
 
+const getSumm = async (req, res, next) => {
+  let summaries = await mongo.getSummaries(1);
+  res.json(summaries);
+};
+
+exports.postSumm = postSumm;
 exports.getSumm = getSumm;
