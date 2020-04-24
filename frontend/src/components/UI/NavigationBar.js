@@ -61,7 +61,7 @@ class NavigationBar extends React.Component {
           </form>
         </div>
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
-          <a href="#">
+          <a onClick={this.props.authHandler}>
             <i
               className="fas fa-user fa-lg d-none d-lg-block d-xl-block user-icon"
               data-fa-transform="up-7"

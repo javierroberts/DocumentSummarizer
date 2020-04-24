@@ -21,7 +21,7 @@ class UrlInput extends React.Component {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ type: "url", text: this.state.url })
+      body: JSON.stringify({ type: "url", text: this.state.url, id: 1 })
     })
       .then(response => {
         return response.json();

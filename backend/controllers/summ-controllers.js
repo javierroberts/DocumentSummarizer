@@ -1,3 +1,4 @@
+var mongo = require("../mongo");
 var unirest = require("unirest");
 
 const getSumm = (req, res, next) => {
@@ -33,7 +34,9 @@ const getSumm = (req, res, next) => {
   req_api.end(function(res_api) {
     if (res_api.error) throw new Error(res_api.error);
 
-    console.log(res_api.body.summary);
+    console.log(req.body.id);
+    mongo.createSummary(res_api.body.summary, req.body.id);
+
     res.json({ text: res_api.body.summary });
   });
 };
