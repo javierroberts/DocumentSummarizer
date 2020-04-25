@@ -1,21 +1,36 @@
 import React from "react";
+import axios from "axios";
 
 class FlInput extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { file: null };
     this.uploadFile = this.uploadFile.bind(this);
+    this.onChangeHandler = this.onChangeHandler.bind(this);
   }
 
-  uploadFile(event) {
-    const files = event.target.files;
-    const formData = new FormData();
-    formData.append("myFile", files[0]);
+  onChangeHandler = event => {
+    this.setState({ file: event.target.files[0] });
+  };
 
+  uploadFilse = event => {
+    event.preventDefault();
+    console.log("file on frontend: " + this.state.file);
     fetch("http://localhost:5000/getSumm/file", {
       method: "POST",
-      body: formData
-    });
-  }
+      headers: {
+        Authorization: this.props.token,
+        "content-type": this.state.file.type
+      },
+      body: this.state.file
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        this.props.handleSummaryChange(data.text);
+      });
+  };
 
   render() {
     return (
@@ -37,13 +52,14 @@ class FlInput extends React.Component {
               <input
                 type="file"
                 class="form-control-file border"
-                onChange={this.uploadFile}
+                onChange={this.onChangeHandler}
               />
             </div>
             <div className="col-md-6">
               <button
                 className="btn btn-secondary summarize-button"
                 type="submit"
+                onClick={this.uploadFile}
               >
                 Summarize
               </button>

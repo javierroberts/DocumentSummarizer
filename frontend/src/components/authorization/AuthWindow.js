@@ -6,6 +6,7 @@ import "./AuthWindow.css";
 class AuthWindow extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { wrongPass: false };
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
@@ -34,6 +35,10 @@ class AuthWindow extends React.Component {
   };
 
   handleLogin = event => {
+    if (this.state.username.length < 7 || this.state.password < 7) {
+      this.setState({ username: "", password: "" });
+      return;
+    }
     event.preventDefault();
     console.log("Sendingg");
     fetch("http://localhost:5000/users/login", {
@@ -41,19 +46,25 @@ class AuthWindow extends React.Component {
       headers: {
         "Content-Type": "application/json"
       },
-      body: {
+      body: JSON.stringify({
         username: this.state.username,
         password: this.state.password
-      }
+      })
     })
       .then(response => {
         return response.json();
       })
       .then(data => {
-        console.log("DATA: " + JSON.stringify(data.token));
-        this.props.setToken(data.token);
+        if (data.token == -1) {
+          console.log("DATAssss: " + JSON.stringify(data));
+          this.setState({ wrongPass: true });
+          return;
+        } else {
+          console.log("DATA: " + JSON.stringify(data.token));
+          this.props.setToken(data.token);
+          this.props.closeHandler();
+        }
       });
-    this.props.closeHandler();
   };
 
   render() {
@@ -61,7 +72,11 @@ class AuthWindow extends React.Component {
       <div className="wrapper fadeInDown">
         <div id="formContent">
           <div className="fadeIn first">
-            <h3>Login</h3>
+            {this.state.wrongPass ? (
+              <h3>Wrong password or no account exists</h3>
+            ) : (
+              <h3>Login</h3>
+            )}
           </div>
           <form>
             <input
@@ -94,12 +109,6 @@ class AuthWindow extends React.Component {
               </a>
             </div>
           </form>
-
-          <div id="formFooter">
-            <a className="underlineHover" href="#">
-              Forgot Password?
-            </a>
-          </div>
         </div>
       </div>
     );

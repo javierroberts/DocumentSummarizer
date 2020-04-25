@@ -6,7 +6,12 @@ import "./Signup.css";
 class Signup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "", confirmPass: "" };
+    this.state = {
+      username: "",
+      password: "",
+      confirmPass: "",
+      accExists: false
+    };
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleConfrimPassChange = this.handleConfrimPassChange.bind(this);
@@ -41,6 +46,10 @@ class Signup extends React.Component {
   };
 
   handleCreateAccount = event => {
+    if (this.state.username.length < 7 || this.state.password < 7) {
+      this.setState({ username: "", password: "" });
+      return;
+    }
     event.preventDefault();
     fetch("http://localhost:5000/users/create", {
       method: "POST",
@@ -56,11 +65,14 @@ class Signup extends React.Component {
         return response.json();
       })
       .then(data => {
+        if (data.token == -1) {
+          this.setState({ accExists: true });
+          return;
+        }
         console.log("DATA: " + JSON.stringify(data.token));
         this.props.setToken(data.token);
+        this.props.closeHandler();
       });
-
-    this.props.closeHandler();
   };
 
   render() {
@@ -68,7 +80,11 @@ class Signup extends React.Component {
       <div className="wrapper fadeInDown">
         <div id="formContent">
           <div className="fadeIn first">
-            <h3>Sign up</h3>
+            {this.state.accExists ? (
+              <h3>Account already exists</h3>
+            ) : (
+              <h3>Signup</h3>
+            )}
           </div>
           <form>
             <input
@@ -76,7 +92,7 @@ class Signup extends React.Component {
               id="login"
               className="fadeIn second"
               name="username"
-              placeholder="username"
+              placeholder="username (at least 7 characters)"
               onChange={this.handleUsernameChange}
             />
             <input
@@ -84,16 +100,8 @@ class Signup extends React.Component {
               id="password"
               className="fadeIn third"
               name="login"
-              placeholder="password"
+              placeholder="password (at least 7 characters)"
               onChange={this.handlePasswordChange}
-            />
-            <input
-              type="text"
-              id="password2"
-              className="fadeIn third"
-              name="login"
-              placeholder="confirm password"
-              onChange={this.handleConfirmPassChange}
             />
 
             <input

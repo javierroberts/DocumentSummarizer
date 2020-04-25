@@ -6,12 +6,14 @@ class Recent extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { summaries: [] };
+    this.state = { summaries: [], retrieved: false };
     this.getSummaries = this.getSummaries.bind(this);
   }
 
   getSummaries = () => {
-    console.log("HELLOOOOO");
+    if (this.props.token == -1 || this.state.retrieved) {
+      return;
+    }
     fetch("http://localhost:5000/getSumm", {
       method: "GET",
       headers: {
@@ -24,21 +26,32 @@ class Recent extends React.Component {
       })
       .then(data => {
         this.setState({ summaries: data });
+        this.setState({ retrieved: true });
       });
   };
 
+  componentDidUpdate = () => {
+    this.getSummaries();
+  };
   componentDidMount = () => {
     this.getSummaries();
   };
-
   render() {
     return (
       <div className="container main-content">
-        <div className="row">
-          <div className="col-md-12">
-            <h3>Recent Summaries</h3>
+        {this.props.token == -1 ? (
+          <div className="row">
+            <div className="col-md-12">
+              <h3>Create an account to store and view recent summaries</h3>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="row">
+            <div className="col-md-12">
+              <h3>Recent Summaries</h3>
+            </div>
+          </div>
+        )}
 
         {this.state.summaries.length > 0 &&
           this.state.summaries.map(summary => {

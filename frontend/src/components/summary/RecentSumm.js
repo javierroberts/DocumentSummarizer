@@ -11,8 +11,8 @@ class RecentSumm extends React.Component {
     return (
       <div className="row summary">
         <div className="col-md-6 type">
-          <span>{this.props.type}:</span>
-          <span> {this.props.text}</span>
+          <h4>{this.props.type == "cp" ? "copied text" : this.props.type}:</h4>
+          {this.props.text}
         </div>
         <div className="col-md-6 sumText">
           <span>{this.props.summary}</span>

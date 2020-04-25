@@ -17,10 +17,11 @@ import AuthWindowWrapper from "./components/authorization/AuthWindowWrapper";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { auth: false, token: "" };
+    this.state = { auth: false, token: -1 };
 
     this.authHandler = this.authHandler.bind(this);
     this.setToken = this.setToken.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   authHandler = () => {
@@ -32,6 +33,19 @@ class App extends React.Component {
   setToken = token => {
     console.log("Setting token: ", token);
     this.setState({ token: token });
+    localStorage.setItem("userData", JSON.stringify({ token: token }));
+  };
+
+  componentDidMount = () => {
+    const storedData = JSON.parse(localStorage.getItem("userData"));
+    if (storedData && storedData.token) {
+      this.setToken(storedData.token);
+    }
+  };
+
+  logout = () => {
+    this.setState({ token: "-1" });
+    localStorage.setItem("userData", JSON.stringify({ token: "-1" }));
   };
 
   render() {
@@ -44,6 +58,8 @@ class App extends React.Component {
               closeHandler={this.authHandler}
               setToken={this.setToken}
               authHandler={this.state.authHandler}
+              logoutHandler={this.logout}
+              token={this.state.token}
             />
           </div>
         ) : (

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import AuthWindow from "./AuthWindow";
 
 import Signup from "./Signup";
+import Logout from "./Logout";
 
 class AuthWindowWrapper extends React.Component {
   constructor(props) {
@@ -24,10 +25,18 @@ class AuthWindowWrapper extends React.Component {
         <div className="row">
           <div className="col-md-2"></div>
           <div className="col-md-10">
-            {this.state.signup == false ? (
+            {this.props.token != -1 ? (
+              <Logout
+                logoutHandler={() => {
+                  this.props.logoutHandler();
+                  this.props.closeHandler();
+                }}
+              />
+            ) : this.state.signup == false ? (
               <AuthWindow
                 closeHandler={this.props.closeHandler}
                 signupHandler={this.signupHandler}
+                setToken={this.props.setToken}
               />
             ) : (
               <Signup
