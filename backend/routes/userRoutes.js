@@ -2,9 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const router = express.Router();
 
-const summControllers = require("../controllers/summ-controllers");
+const userContrrolers = require("../controllers/userController");
+
 router.use(bodyParser.json());
-router.post("/", summControllers.postSumm);
-router.get("/", summControllers.getSumm);
+router.post("/login", userContrrolers.loginUser);
+router.post("/create", userContrrolers.postUser);
 
 module.exports = router;
