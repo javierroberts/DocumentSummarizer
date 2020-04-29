@@ -2,7 +2,7 @@ var mongo = require("../mongo");
 var unirest = require("unirest");
 var jwt = require("jsonwebtoken");
 var pump = require("pump");
-var googleTranslate = require("google-translate")(API_KEY);
+var googleTranslate = require("google-translate")("APIKEY");
 
 const postSumm = (req, res, next) => {
   const token = req.headers.authorization;
@@ -42,7 +42,7 @@ const postSumm = (req, res, next) => {
 
   req_api.headers({
     "x-rapidapi-host": "meaningcloud-summarization-v1.p.rapidapi.com",
-    "x-rapidapi-key": "da69019e4fmshe69d8cb25cf4f1cp1b3321jsn85198d1eaebc",
+    "x-rapidapi-key": "APIKEY",
     accept: "application/json"
   });
 

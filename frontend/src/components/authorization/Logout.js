@@ -11,6 +11,9 @@ class Logout extends React.Component {
   componentDidMount() {
     document.addEventListener("click", this.handleClickOutside, true);
   }
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClickOutside, true);
+  }
 
   handleClickOutside = event => {
     const domNode = ReactDOM.findDOMNode(this);
