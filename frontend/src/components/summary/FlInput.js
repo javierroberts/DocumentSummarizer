@@ -4,25 +4,42 @@ import axios from "axios";
 class FlInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { file: null };
+    this.state = { file: null, fileReader: null, text: null, button: true, error: null };
     this.uploadFile = this.uploadFile.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
+    this.onLoadFile = this.onLoadFile.bind(this);
   }
 
+  onLoadFile = event => {
+    this.setState({ ...this.state, text: this.state.fileReader.result, button: false });
+  }
+
+
   onChangeHandler = event => {
-    this.setState({ file: event.target.files[0] });
+    var ext = event.target.files[0].name.substr(event.target.files[0].name.length - 3);
+    if (ext == "txt") {
+      let fileReader = new FileReader();
+      fileReader.onloadend = this.onLoadFile;
+      fileReader.readAsText(event.target.files[0]);
+      this.setState({ ...this.state, file: event.target.files[0], fileReader, error: null, button: true });
+    } else {
+      this.setState({...this.state, error: "Sorry, at the moment we only accept .txt files", button: true})
+    }
   };
 
-  uploadFilse = event => {
+
+  uploadFile = event => {
     event.preventDefault();
-    console.log("file on frontend: " + this.state.file);
-    fetch("http://localhost:5000/getSumm/file", {
+    fetch("http://localhost:5000/getSumm", {
       method: "POST",
       headers: {
-        Authorization: this.props.token,
-        "content-type": this.state.file.type
+        "Content-Type": "application/json",
+        Authorization: this.props.token
       },
-      body: this.state.file
+      body: JSON.stringify({
+        type: "cp",
+        text: this.state.text
+      })
     })
       .then(response => {
         return response.json();
@@ -41,17 +58,20 @@ class FlInput extends React.Component {
           </div>
         </div>
         <div className="row instruction-row">
-          <div className="col-md-12">1. Select the local PDF file below</div>
+          <div className="col-md-12">1. Select the local text file below</div>
         </div>
         <div className="row instruction-row">
           <div className="col-md-12">2. The summary will appear below</div>
+        </div>
+        <div className="row instruction-row">
+          <div className="col-md-12" style={{color: "red"}}>{this.state.error}</div>
         </div>
         <div className="row">
           <form className="form-inline url-input" action="#">
             <div className="col-md-6">
               <input
                 type="file"
-                class="form-control-file border"
+                className="form-control-file border"
                 onChange={this.onChangeHandler}
               />
             </div>
@@ -60,6 +80,7 @@ class FlInput extends React.Component {
                 className="btn btn-secondary summarize-button"
                 type="submit"
                 onClick={this.uploadFile}
+                disabled={this.state.button}
               >
                 Summarize
               </button>

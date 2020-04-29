@@ -10,7 +10,7 @@ const postSumm = (req, res, next) => {
   const text = req.body.text;
   if (req.body.type == "cp") {
     req_api.query({
-      txt: req.body.text,
+      txt: text,
       sentences: "2"
     });
   } else if (req.body.type == "url") {
@@ -18,11 +18,11 @@ const postSumm = (req, res, next) => {
       url: text,
       sentences: "2"
     });
-  } else if (req.body.type == "file") {
-    req_api.query({
-      file: text,
-      sentences: "2"
-    });
+  // } else if (req.body.type == "file") {
+  //   req_api.query({
+  //     file: text,
+  //     sentences: "2"
+  //   });
   }
 
   req_api.headers({
