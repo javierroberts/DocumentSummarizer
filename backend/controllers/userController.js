@@ -9,7 +9,6 @@ const postUser = async (req, res, next) => {
 };
 
 const loginUser = async (req, res, next) => {
-  console.log("HIIIIIIIIIITTTTTTT");
   let token;
   token = await mongo.loginUser(req.body.username, req.body.password);
   res.json({ token: token });

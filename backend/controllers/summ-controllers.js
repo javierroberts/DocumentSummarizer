@@ -2,6 +2,7 @@ var mongo = require("../mongo");
 var unirest = require("unirest");
 var jwt = require("jsonwebtoken");
 var pump = require("pump");
+var googleTranslate = require("google-translate")(API_KEY);
 
 const postSumm = (req, res, next) => {
   const token = req.headers.authorization;
@@ -45,21 +46,40 @@ const postSumm = (req, res, next) => {
     accept: "application/json"
   });
 
+  let summary;
+
   req_api.end(function(res_api) {
     if (res_api.error) throw new Error(res_api.error);
 
-    console.log("token is " + token);
+    summary = res_api.body.summary;
 
-    if (token != -1) {
-      mongo.createSummary(
-        res_api.body.summary,
-        decodedToken.username,
-        req.body.type,
-        req.body.text
-      );
+    if (req.body.language != "en") {
+      googleTranslate.translate(summary, req.body.language, function(
+        err,
+        translation
+      ) {
+        summary = translation.translatedText + " (translated)";
+        if (token != -1) {
+          mongo.createSummary(
+            summary,
+            decodedToken.username,
+            req.body.type,
+            req.body.text
+          );
+        }
+        res.json({ text: summary });
+      });
+    } else {
+      if (token != -1) {
+        mongo.createSummary(
+          summary,
+          decodedToken.username,
+          req.body.type,
+          req.body.text
+        );
+      }
+      res.json({ text: summary });
     }
-
-    res.json({ text: res_api.body.summary });
   });
 };
 

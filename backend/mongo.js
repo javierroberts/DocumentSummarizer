@@ -28,8 +28,6 @@ const createSummary = async (summary, username, type, text) => {
 const getSummaries = async username => {
   const client = new MongoClient(url);
 
-  console.log("GETTING SUMMARIES FOR : " + username);
-
   let summaries;
   try {
     await client.connect();
@@ -86,7 +84,6 @@ const createUser = async (username, password) => {
 
 const getUser = async username => {
   const client = new MongoClient(url);
-  console.log("getting user this: " + username);
   let user;
   try {
     await client.connect();

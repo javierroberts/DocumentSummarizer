@@ -40,7 +40,6 @@ class AuthWindow extends React.Component {
       return;
     }
     event.preventDefault();
-    console.log("Sendingg");
     fetch("http://localhost:5000/users/login", {
       method: "POST",
       headers: {
@@ -56,11 +55,9 @@ class AuthWindow extends React.Component {
       })
       .then(data => {
         if (data.token == -1) {
-          console.log("DATAssss: " + JSON.stringify(data));
           this.setState({ wrongPass: true });
           return;
         } else {
-          console.log("DATA: " + JSON.stringify(data.token));
           this.props.setToken(data.token);
           this.props.closeHandler();
         }

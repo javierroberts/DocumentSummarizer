@@ -1,32 +1,62 @@
 import React from "react";
 import axios from "axios";
 
+import LanguagePicker from "../UI/LanguagePicker";
+
+import "./Flinput.css";
+
 class FlInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { file: null, fileReader: null, text: null, button: true, error: null };
+    this.state = {
+      file: null,
+      fileReader: null,
+      text: null,
+      button: true,
+      error: null,
+      language: "en"
+    };
     this.uploadFile = this.uploadFile.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onLoadFile = this.onLoadFile.bind(this);
+    this.handleLanguageChange = this.handleLanguageChange.bind(this);
   }
 
   onLoadFile = event => {
-    this.setState({ ...this.state, text: this.state.fileReader.result, button: false });
-  }
-
+    this.setState({
+      ...this.state,
+      text: this.state.fileReader.result,
+      button: false
+    });
+  };
 
   onChangeHandler = event => {
-    var ext = event.target.files[0].name.substr(event.target.files[0].name.length - 3);
+    var ext = event.target.files[0].name.substr(
+      event.target.files[0].name.length - 3
+    );
     if (ext == "txt") {
       let fileReader = new FileReader();
       fileReader.onloadend = this.onLoadFile;
       fileReader.readAsText(event.target.files[0]);
-      this.setState({ ...this.state, file: event.target.files[0], fileReader, error: null, button: true });
+      this.setState({
+        ...this.state,
+        file: event.target.files[0],
+        fileReader,
+        error: null,
+        button: true
+      });
     } else {
-      this.setState({...this.state, error: "Sorry, at the moment we only accept .txt files", button: true})
+      this.setState({
+        ...this.state,
+        error: "Sorry, at the moment we only accept .txt files",
+        button: true
+      });
     }
   };
 
+  handleLanguageChange(language) {
+    this.setState({ language: language });
+  }
 
   uploadFile = event => {
     event.preventDefault();
@@ -38,7 +68,8 @@ class FlInput extends React.Component {
       },
       body: JSON.stringify({
         type: "cp",
-        text: this.state.text
+        text: this.state.text,
+        language: this.state.language
       })
     })
       .then(response => {
@@ -64,7 +95,9 @@ class FlInput extends React.Component {
           <div className="col-md-12">2. The summary will appear below</div>
         </div>
         <div className="row instruction-row">
-          <div className="col-md-12" style={{color: "red"}}>{this.state.error}</div>
+          <div className="col-md-12" style={{ color: "red" }}>
+            {this.state.error}
+          </div>
         </div>
         <div className="row">
           <form className="form-inline url-input" action="#">
@@ -84,6 +117,13 @@ class FlInput extends React.Component {
               >
                 Summarize
               </button>
+            </div>
+            <div className="row">
+              <div className="col-md-6 lp">
+                <LanguagePicker
+                  handleLanguageChange={this.handleLanguageChange}
+                />
+              </div>
             </div>
           </form>
         </div>

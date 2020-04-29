@@ -31,7 +31,6 @@ class App extends React.Component {
   };
 
   setToken = token => {
-    console.log("Setting token: ", token);
     this.setState({ token: token });
     localStorage.setItem("userData", JSON.stringify({ token: token }));
   };

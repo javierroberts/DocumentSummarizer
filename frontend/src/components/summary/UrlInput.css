@@ -1,5 +1,5 @@
 .summarize-button {
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 
 .instruction-row {
@@ -8,4 +8,9 @@
 
 .url-input {
   margin-top: 2rem;
+}
+
+.lp {
+  margin-top: 1rem;
+  margin-left: 1.3rem;
 }

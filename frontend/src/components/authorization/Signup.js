@@ -69,7 +69,6 @@ class Signup extends React.Component {
           this.setState({ accExists: true });
           return;
         }
-        console.log("DATA: " + JSON.stringify(data.token));
         this.props.setToken(data.token);
         this.props.closeHandler();
       });

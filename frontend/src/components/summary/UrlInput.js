@@ -1,22 +1,27 @@
 import React from "react";
 
+import LanguagePicker from "../UI/LanguagePicker";
+
 import "./UrlInput.css";
 
 class UrlInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { url: "" };
+    this.state = { url: "", language: "en" };
     this.handleUrlChange = this.handleUrlChange.bind(this);
     this.handleUrlSubmit = this.handleUrlSubmit.bind(this);
+    this.handleLanguageChange = this.handleLanguageChange.bind(this);
   }
 
   handleUrlChange(event) {
     this.setState({ url: event.target.value });
   }
+  handleLanguageChange(language) {
+    this.setState({ language: language });
+  }
 
   handleUrlSubmit(event) {
     event.preventDefault();
-    console.log("THis is the token im sending: " + this.props.token);
     fetch("http://localhost:5000/getSumm", {
       method: "POST",
       headers: {
@@ -25,7 +30,8 @@ class UrlInput extends React.Component {
       },
       body: JSON.stringify({
         type: "url",
-        text: this.state.url
+        text: this.state.url,
+        language: this.state.language
       })
     })
       .then(response => {
@@ -76,6 +82,13 @@ class UrlInput extends React.Component {
               >
                 Summarize
               </button>
+            </div>
+            <div className="row">
+              <div className="col-md-6 lp">
+                <LanguagePicker
+                  handleLanguageChange={this.handleLanguageChange}
+                />
+              </div>
             </div>
           </form>
         </div>

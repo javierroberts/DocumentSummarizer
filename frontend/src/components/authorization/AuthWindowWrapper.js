@@ -31,6 +31,7 @@ class AuthWindowWrapper extends React.Component {
                   this.props.logoutHandler();
                   this.props.closeHandler();
                 }}
+                closeHandler={this.props.closeHandler}
               />
             ) : this.state.signup == false ? (
               <AuthWindow

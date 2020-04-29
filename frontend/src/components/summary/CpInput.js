@@ -1,17 +1,23 @@
 import React from "react";
 
+import LanguagePicker from "../UI/LanguagePicker";
 import "./CpInput.css";
 
 class CpInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { cpValue: "" };
+    this.state = { cpValue: "", language: "en" };
     this.handleCpChange = this.handleCpChange.bind(this);
     this.handleCpSubmit = this.handleCpSubmit.bind(this);
+    this.handleLanguageChange = this.handleLanguageChange.bind(this);
   }
 
   handleCpChange(event) {
     this.setState({ cpValue: event.target.value });
+  }
+
+  handleLanguageChange(language) {
+    this.setState({ language: language });
   }
 
   handleCpSubmit(event) {
@@ -24,7 +30,8 @@ class CpInput extends React.Component {
       },
       body: JSON.stringify({
         type: "cp",
-        text: this.state.cpValue
+        text: this.state.cpValue,
+        language: this.state.language
       })
     })
       .then(response => {
@@ -68,6 +75,9 @@ class CpInput extends React.Component {
           </div>
         </div>
         <div className="row">
+          <div className="col-md-4 lp">
+            <LanguagePicker handleLanguageChange={this.handleLanguageChange} />
+          </div>
           <div className="col-md-6">
             <button
               onClick={this.handleCpSubmit}
