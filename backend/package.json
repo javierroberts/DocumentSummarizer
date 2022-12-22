@@ -17,7 +17,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "google-translate": "^3.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongodb": "^3.5.6",
     "pump": "^3.0.0",
     "unirest": "^0.6.0"
